@@ -8,3 +8,6 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+
+import api from './api';
+window.api = api; // Expose the API globally for debugging

@@ -1,11 +1,12 @@
 {
   "name": "hub",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm --prefix client run build",
-    "start": "NODE_ENV=production node server/index.js",
+    "start": "cross-env NODE_ENV=production node server/index.js",
     "server": "nodemon server/index.js",
     "client": "npm --prefix client run dev"
   },
@@ -15,6 +16,7 @@
   "description": "",
   "devDependencies": {
     "concurrently": "9.2.0",
+    "cross-env": "7.0.3",
     "nodemon": "3.1.10"
   }
 }
