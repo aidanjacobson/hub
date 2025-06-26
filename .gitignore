@@ -1,0 +1,10 @@
+# vs/vscode
+.vscode/
+.vs/
+
+# node
+node_modules/
+
+# development config folder
+config/
+

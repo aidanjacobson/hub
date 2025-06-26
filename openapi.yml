@@ -1,0 +1,421 @@
+openapi: 3.1.3
+info:
+  title: Hub API
+  version: 1.0.0
+
+paths:
+  /hub:
+    get:
+      summary: Get all hub data
+      responses:
+        '200':
+          description: Full hub object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Item'
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+
+  /hub/cleanup:
+    post:
+      summary: Remove invalid references
+      responses:
+        '200':
+          description: Cleanup successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /hub/reset:
+    post:
+      summary: Clear all items and categories
+      responses:
+        '200':
+          description: Reset successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /item:
+    get:
+      summary: Get all items
+      responses:
+        '200':
+          description: List of items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+
+  /item/{itemId}:
+    get:
+      summary: Get single item
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      responses:
+        '200':
+          description: The item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+
+  /item/create:
+    post:
+      summary: Create item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemRequest'
+      responses:
+        '200':
+          description: Created item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+
+  /item/{itemId}/update:
+    post:
+      summary: Update item
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartialItem'
+      responses:
+        '200':
+          description: Updated item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+
+  /item/{itemId}/delete:
+    post:
+      summary: Delete item
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      responses:
+        '200':
+          description: Deletion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /item/{itemId}/reorder:
+    post:
+      summary: Reorder item globally
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newIndex:
+                  type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /category:
+    get:
+      summary: Get all categories
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /category/{categoryId}:
+    get:
+      summary: Get category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          description: The category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /category/create:
+    post:
+      summary: Create category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+      responses:
+        '200':
+          description: Created category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /category/{categoryId}/update:
+    post:
+      summary: Update category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartialCategory'
+      responses:
+        '200':
+          description: Updated category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /category/{categoryId}/delete:
+    post:
+      summary: Delete category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /category/{categoryId}/reorder:
+    post:
+      summary: Reorder category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newIndex:
+                  type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /category/{categoryId}/items:
+    get:
+      summary: Get items in category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          description: List of items in the category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+
+  /category/{categoryId}/items/add:
+    post:
+      summary: Add item to category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemId:
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /category/{categoryId}/items/{itemId}/delete:
+    post:
+      summary: Remove item from category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+        - $ref: '#/components/parameters/ItemId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+  /category/{categoryId}/items/{itemId}/reorder:
+    post:
+      summary: Reorder item in category
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newIndex:
+                  type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+
+components:
+  parameters:
+    ItemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: string
+    CategoryId:
+      name: categoryId
+      in: path
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    Item:
+      type: object
+      required: [id, url, title]
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+
+    PartialItem:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+
+    CreateItemRequest:
+      type: object
+      required: [url, title]
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+
+    Category:
+      type: object
+      required: [id, name, title, children]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        title:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    PartialCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    CreateCategoryRequest:
+      type: object
+      required: [name, title]
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Operation completed successfully
