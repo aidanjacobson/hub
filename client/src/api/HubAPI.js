@@ -4,7 +4,7 @@ class HubAPI {
         this.api = baseAPI.use('/hub');
     }
 
-    async getAll() {
+    async getHubData() {
         return await this.api.get('/');
     }
 

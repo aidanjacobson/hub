@@ -1,0 +1,11 @@
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 12rem;
+    border: 1px solid white;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: #505050;
+    margin: 1rem;
+}

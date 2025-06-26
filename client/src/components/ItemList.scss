@@ -1,0 +1,13 @@
+.item-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+
+    border: 1px solid white;
+}
+
+.item-list legend {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
