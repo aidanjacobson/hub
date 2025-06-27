@@ -1,0 +1,28 @@
+.item-editor {
+    display: inline-flex;
+    flex-direction: column;
+    width: 30%;
+    align-content: center;
+}
+
+.item-editor-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.save-btn {
+    background-color: #080;
+    margin-top: 1rem;
+}
+
+.cancel-btn {
+    background-color: #800;
+    margin-top: 1rem;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

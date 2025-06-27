@@ -1,0 +1,28 @@
+.add-actions {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    width: 30%;
+}
+
+.add-action {
+    margin: 0 1rem 1rem 1rem;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.add-action.item {
+    background-color: #077;
+
+    &:hover {
+        background-color: #0aa;
+    }
+}
+
+.add-action.category {
+    background-color: #070;
+
+    &:hover {
+        background-color: #0a0;
+    }
+}
